@@ -42,13 +42,14 @@ test('get product with invalid id should receive code 400', async ({ request }) 
   expect(statusCode).toBe(StatusCodes.BAD_REQUEST)
 })
 
-test('post product with correct mandatory only data should receive code 201', async ({ request }) => {
+test('post product with correct mandatory only data should receive code 201', async ({
+  request,
+}) => {
   // prepare request body
   const requestBody = {
     name: 'Orange',
     category: 'Fruit',
     price: 2.39,
-
   }
   // Send a POST request to the server
   const response = await request.post('https://shop.tl-academy.ee/api/products', {
@@ -68,13 +69,15 @@ test('post product with correct mandatory only data should receive code 201', as
   // check that body.price is number type
   expect(typeof responseBody.price).toBe('number')
 })
-test('post product with correct mandatory data and quantity should receive code 201', async ({ request }) => {
+test('post product with correct mandatory data and quantity should receive code 201', async ({
+  request,
+}) => {
   // prepare request body
   const requestBody = {
     name: 'Kiwi',
     category: 'Fruit',
     price: 2.39,
-    quantity: 25,//optional field set explicitly
+    quantity: 25, //optional field set explicitly
   }
   // Send a POST request to the server
   const response = await request.post('https://shop.tl-academy.ee/api/products', {
@@ -91,12 +94,9 @@ test('post product with correct mandatory data and quantity should receive code 
   expect(responseBody.quantity).toBe(25)
   expect(responseBody.available).toBeTruthy()
 })
-test('post product with missing mandatory name should receive code 400', async ({
-  request,
-}) => {
+test('post product with missing mandatory name should receive code 400', async ({ request }) => {
   // prepare request body
   const requestBody = {
-
     category: 'Fruit',
     price: 2.39,
   }
@@ -115,4 +115,3 @@ test('post product with missing mandatory name should receive code 400', async (
   //expect(responseBody.quantity).toBe(25)
   //expect(responseBody.available).toBeTruthy()
 })
-
