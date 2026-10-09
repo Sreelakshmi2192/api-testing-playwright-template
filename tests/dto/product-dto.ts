@@ -1,5 +1,4 @@
 export class ProductDto {
-
   //let's define fields
   name: string
   category: string
