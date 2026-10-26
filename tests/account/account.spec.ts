@@ -25,25 +25,27 @@ test('create account with correct payload should receive code 201', async ({ req
   const response = await request.post('https://shop.tl-academy.ee/api/accounts', {
     headers: { 'X-API-KEY': 'my-api-key' },
     //let's define payload
-    data: new AccountDto('Mark', 'USD')
+    data: new AccountDto('Mark', 'USD'),
   })
-
 
   // parse raw response body to json
   const responseBody = await response.json()
   console.log('response body:', responseBody)
   const statusCode = response.status()
-  const accountId= responseBody.id
+  const accountId = responseBody.id
   console.log('account id:', accountId)
   expect(statusCode).toBe(StatusCodes.CREATED)
 
   //STEP 2: deposit account are just created
   //Step 2.1 make request POST/accounts/{accountId}/deposit
-  const responseDeposit = await request.post(`https://shop.tl-academy.ee/api/accounts/${accountId}/deposit`, {
-    headers: { 'X-API-KEY': 'my-api-key' },
-    //let's define payload
-    data: {amount : 25.5,},
-  })
+  const responseDeposit = await request.post(
+    `https://shop.tl-academy.ee/api/accounts/${accountId}/deposit`,
+    {
+      headers: { 'X-API-KEY': 'my-api-key' },
+      //let's define payload
+      data: { amount: 25.5 },
+    },
+  )
   const responseBodyDeposit = await responseDeposit.json()
   const depositStatus = responseDeposit.status()
   console.log('response body:', responseBodyDeposit)

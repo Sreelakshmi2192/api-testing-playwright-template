@@ -34,9 +34,7 @@ test.describe('Authorization flow', () => {
     const orderId = await createOrder(request, token)
 
     await getOrderById(request, token, orderId)
-
   })
-
 
   test('should get orders with authorization token', async ({ request }) => {
     const token = await fetchJwt(request, loginDto)
