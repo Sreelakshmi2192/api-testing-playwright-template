@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { Login } from '../../dto/login-dto'
-import { createOrder, fetchJwt } from '../../helpers/api-helper'
+import { createOrder, fetchJwt, getOrderById } from '../../helpers/api-helper'
 
 let loginDto: Login
 export const baseUrl = 'https://backend.tallinn-learning.ee'
@@ -27,6 +27,13 @@ test.describe('Authorization flow', () => {
     const orderId = await createOrder(request, token)
     expect(orderId).toBeDefined()
     console.log(orderId)
+  })
+
+  test('should create order and validate order by Id', async ({ request }) => {
+    const token = await fetchJwt(request, loginDto)
+    const orderId = await createOrder(request, token)
+
+    await getOrderById(request, token, orderId)
   })
 
   test('should get orders with authorization token', async ({ request }) => {
